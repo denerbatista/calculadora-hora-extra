@@ -75,6 +75,7 @@ section {
 label {
   display: flex;
   justify-content: center;
+  white-space: nowrap;
 }
 
 input {
