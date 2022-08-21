@@ -32,7 +32,11 @@ ul {
 
 a {
   text-decoration: none;
+  white-space: nowrap;
+  font-size: 3vw;
 }
+
+
 
 h1{
     font-size: 3vw;
@@ -69,7 +73,6 @@ section {
   border: 0;
   width: 10vw;
   height: 10vh;
-  gap: 0.5rem;
 }
 
 label {
@@ -87,6 +90,7 @@ input {
 div {
   display: flex;
   gap: 1rem;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
