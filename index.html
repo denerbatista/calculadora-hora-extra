@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/style.css" />
+    <title>Calculadora</title>
+  </head>
+  <body>
+    <header>
+      <h1>Calculadora de hora extra servidor municipal de Aracruz</h1>
+      <nav>
+        <ul>
+          <a>Instruções</a>
+          <a
+            href="http://www.secom.aracruz.es.gov.br/servidor/login/"
+            target="_blank"
+            >Área do Servidor</a
+          >
+          <a>Termos de uso</a>
+        </ul>
+      </nav>
+    </header>
+
+    <section>
+      <div class="inputs">
+        <fieldset id="fieldset_father">
+          <fieldset class="fieldset_child">
+            <label for="salario_base">Salário Base</label>
+            <input
+              type="number"
+              name="salario_base"
+              id="salario_base"
+              placeholder="R$ 0,00"
+            />
+          </fieldset>
+
+          <fieldset class="fieldset_child">
+            <label for="anuenio">Anuênio</label>
+            <input
+              type="number"
+              name="anuenio"
+              id="anuenio"
+              placeholder="R$ 0,00"
+            />
+          </fieldset>
+
+          <fieldset class="fieldset_child">
+            <label for="carga_horaria">Carga Horária Trabalhada</label>
+            <input
+              type="number"
+              name="carga_horaria"
+              id="carga_horaria"
+              placeholder="0 horas"
+            />
+          </fieldset>
+        </fieldset>
+      </div>
+
+      <div>
+        <h3>Valor extra aproximado:</h3>
+        <span id="result">Preencha os campos acima</span>
+        <button onclick="calc()" id="button">Calcular</button>
+      </div>
+    </section>
+
+    <footer>Desenvolvido por Dener Batista</footer>
+  </body>
+  <script type="text/javascript" src="./assets/script.js"></script>
+</html>
