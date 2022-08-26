@@ -11,6 +11,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: absolut;
 }
 
 header {
@@ -62,8 +63,8 @@ section {
   border: 0;
   justify-content: center;
   width: 60vw;
-  justify-content: space-around;
   flex-wrap: wrap;
+  gap: 2vw;
 }
 
 .fieldset_child {
@@ -79,6 +80,7 @@ label {
   display: flex;
   justify-content: center;
   white-space: nowrap;
+  font-size: 3vw
 }
 
 input {
@@ -95,6 +97,18 @@ div {
   flex-wrap: wrap;
 }
 
+h3{
+font-size: 2vw;
+}
+
+span{
+font-size: 2vw;
+}
+
+button{
+font-size: 2vw;
+}
+
 footer {
   width: 98vw;
   height: calc(20vh - 2rem);
@@ -103,4 +117,5 @@ footer {
   align-items: center;
   border-radius: 0 0 2rem 2rem;
   background-color: aqua;
+  font-size: 2vw;
 }
