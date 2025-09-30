@@ -1,192 +1,276 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Calculadora | Hora Extra — Servidor Municipal de Aracruz</title>
-  <link rel="stylesheet" href="./assets/style.css" />
-  <meta name="description" content="Calculadora informativa para estimar o valor de horas extras de servidores municipais de Aracruz." />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calculadora | Hora Extra — Servidor Municipal de Aracruz</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+    <meta
+      name="description"
+      content="Calculadora informativa para estimar o valor de horas extras de servidores municipais de Aracruz."
+    />
+  </head>
 
-<body>
-  <header class="site-header">
-    <div class="wrap">
-      <h1 class="title">Calculadora de Hora Extra — Servidor Municipal de Aracruz</h1>
-
-      <nav class="nav" aria-label="Navegação principal">
-        <ul class="nav-list">
-          <li>
-            <button class="link" data-modal-target="#modal-instrucoes" aria-haspopup="dialog" aria-controls="modal-instrucoes">
-              Instruções
-            </button>
-          </li>
-          <li>
-            <a class="link" href="https://www.servidor.aracruz.es.gov.br/" target="_blank" rel="noopener noreferrer">
-              Portal do Servidor
-            </a>
-          </li>
-          <li>
-            <button class="link" data-modal-target="#modal-termos" aria-haspopup="dialog" aria-controls="modal-termos">
-              Termo de responsabilidade
-            </button>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <main class="site-main">
-    <section class="card" aria-labelledby="sec-calculo-titulo">
-      <h2 id="sec-calculo-titulo" class="card-title">Preencha os dados para estimar o valor</h2>
-
-      <form id="form-calculadora" class="form" novalidate>
-        <div class="grid">
-          <div class="field">
-            <label for="salario_base" class="label">Salário base (R$)</label>
-            <input
-              id="salario_base"
-              name="salario_base"
-              class="input"
-              type="text"
-              inputmode="decimal"
-              placeholder="Ex.: 3.250,00"
-              autocomplete="off"
-              aria-describedby="help-base"
-              required />
-            <small id="help-base" class="help">Informe o salário base mensal.</small>
-          </div>
-
-          <div class="field">
-            <label for="anuenio" class="label">Anuênio (R$)</label>
-            <input
-              id="anuenio"
-              name="anuenio"
-              class="input"
-              type="text"
-              inputmode="decimal"
-              placeholder="Ex.: 162,50"
-              autocomplete="off"
-              aria-describedby="help-anuenio"
-              required />
-            <small id="help-anuenio" class="help">Soma dos adicionais de anuênio no mês.</small>
-          </div>
-
-          <!-- NOVO: horas e minutos separados -->
-          <div class="field">
-            <label class="label" for="horas_extras">Horas extras (horas)</label>
-            <input
-              id="horas_extras"
-              name="horas_extras"
-              class="input"
-              type="number"
-              inputmode="numeric"
-              min="0"
-              step="1"
-              placeholder="Ex.: 12"
-              aria-describedby="help-horas"
-              required />
-            <small id="help-horas" class="help">Quantidade de horas cheias.</small>
-          </div>
-
-          <div class="field">
-            <label class="label" for="minutos_extras">Horas extras (minutos)</label>
-            <input
-              id="minutos_extras"
-              name="minutos_extras"
-              class="input"
-              type="number"
-              inputmode="numeric"
-              min="0"
-              max="59"
-              step="1"
-              placeholder="0–59"
-              aria-describedby="help-min"
-              required />
-            <small id="help-min" class="help">Minutos restantes (0 a 59).</small>
-          </div>
-        </div>
-
-        <div class="actions">
-          <button id="btn-calcular" type="submit" class="btn primary">Calcular</button>
-          <button id="btn-limpar" type="button" class="btn ghost">Limpar</button>
-        </div>
-      </form>
-
-      <div class="result" aria-live="polite">
-        <h3 class="result-title">Valor extra aproximado</h3>
-        <output id="saida" class="result-value">Preencha os campos acima</output>
-        <p id="explicacao" class="result-explain" hidden></p>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <img class="logo" src="assets\logo.png" alt="logo" />
+        <nav class="nav" aria-label="Navegação principal">
+          <ul class="nav-list">
+            <li>
+              <button
+                class="link"
+                data-modal-target="#modal-instrucoes"
+                aria-haspopup="dialog"
+                aria-controls="modal-instrucoes"
+              >
+                Instruções
+              </button>
+            </li>
+            <li>
+              <a
+                class="link"
+                href="https://www.servidor.aracruz.es.gov.br/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Portal do Servidor
+              </a>
+            </li>
+            <li>
+              <button
+                class="link"
+                data-modal-target="#modal-termos"
+                aria-haspopup="dialog"
+                aria-controls="modal-termos"
+              >
+                Termo de responsabilidade
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </section>
+    </header>
 
-    <section class="card soft" aria-labelledby="sec-observacoes">
-      <h2 id="sec-observacoes" class="card-title">Observações importantes</h2>
-      <ul class="notes">
-        <li>Este cálculo é <strong>estimativo</strong> e considera a fórmula informada abaixo.</li>
-        <li>Podem existir regras específicas (normas, acordos, percentuais diferentes, adicionais noturnos, feriados etc.).</li>
-        <li>Sempre confira seu contracheque e as regras vigentes.</li>
-      </ul>
-      <details class="details">
-        <summary>Fórmula usada (estimativa)</summary>
-        <pre class="code">
+    <main class="site-main">
+      <section class="card" aria-labelledby="sec-calculo-titulo">
+        <h2 id="sec-calculo-titulo" class="card-title">
+          Preencha os dados para estimar o valor
+        </h2>
+
+        <form id="form-calculadora" class="form" novalidate>
+          <div class="grid">
+            <div class="field">
+              <label for="salario_base" class="label">Salário base (R$)</label>
+              <input
+                id="salario_base"
+                name="salario_base"
+                class="input"
+                type="text"
+                inputmode="decimal"
+                placeholder="Ex.: 3.250,00"
+                autocomplete="off"
+                aria-describedby="help-base"
+                required
+              />
+              <small id="help-base" class="help"
+                >Informe o salário base mensal.</small
+              >
+            </div>
+
+            <div class="field">
+              <label for="anuenio" class="label">Anuênio (R$)</label>
+              <input
+                id="anuenio"
+                name="anuenio"
+                class="input"
+                type="text"
+                inputmode="decimal"
+                placeholder="Ex.: 162,50"
+                autocomplete="off"
+                aria-describedby="help-anuenio"
+                required
+              />
+              <small id="help-anuenio" class="help"
+                >Soma dos adicionais de anuênio no mês.</small
+              >
+            </div>
+
+            <!-- NOVO: horas e minutos separados -->
+            <div class="field">
+              <label class="label" for="horas_extras"
+                >Horas extras (horas)</label
+              >
+              <input
+                id="horas_extras"
+                name="horas_extras"
+                class="input"
+                type="number"
+                inputmode="numeric"
+                min="0"
+                step="1"
+                placeholder="Ex.: 12"
+                aria-describedby="help-horas"
+                required
+              />
+              <small id="help-horas" class="help"
+                >Quantidade de horas cheias.</small
+              >
+            </div>
+
+            <div class="field">
+              <label class="label" for="minutos_extras"
+                >Horas extras (minutos)</label
+              >
+              <input
+                id="minutos_extras"
+                name="minutos_extras"
+                class="input"
+                type="number"
+                inputmode="numeric"
+                min="0"
+                max="59"
+                step="1"
+                placeholder="0–59"
+                aria-describedby="help-min"
+                required
+              />
+              <small id="help-min" class="help"
+                >Minutos restantes (0 a 59).</small
+              >
+            </div>
+          </div>
+
+          <div class="actions">
+            <button id="btn-calcular" type="submit" class="btn primary">
+              Calcular
+            </button>
+            <button id="btn-limpar" type="button" class="btn ghost">
+              Limpar
+            </button>
+          </div>
+        </form>
+
+        <div class="result" aria-live="polite">
+          <h3 class="result-title">Valor extra aproximado</h3>
+          <output id="saida" class="result-value"
+            >Preencha os campos acima</output
+          >
+          <p id="explicacao" class="result-explain" hidden></p>
+        </div>
+      </section>
+
+      <section class="card soft" aria-labelledby="sec-observacoes">
+        <h2 id="sec-observacoes" class="card-title">Observações importantes</h2>
+        <ul class="notes">
+          <li>
+            Este cálculo é <strong>estimativo</strong> e considera a fórmula
+            informada abaixo.
+          </li>
+          <li>
+            Podem existir regras específicas (normas, acordos, percentuais
+            diferentes, adicionais noturnos, feriados etc.).
+          </li>
+          <li>Sempre confira seu contracheque e as regras vigentes.</li>
+        </ul>
+        <details class="details">
+          <summary>Fórmula usada (estimativa)</summary>
+          <pre class="code">
 valorHora = ( (salárioBase + anuênio) / 30 / 6 )
 totalExtra = valorHora × 1,5 × ( horas + (minutos/60) )
-        </pre>
-        <small>Obs.: 1,5 representa adicional de 50% (hora extra comum). Ajuste conforme sua realidade.</small>
-      </details>
-    </section>
-  </main>
+        </pre
+          >
+          <small
+            >Obs.: 1,5 representa adicional de 50% (hora extra comum). Ajuste
+            conforme sua realidade.</small
+          >
+        </details>
+      </section>
+    </main>
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <p>Desenvolvido por <strong>Dener Batista</strong></p>
-    </div>
-  </footer>
-
-  <!-- Modal: Instruções -->
-  <dialog id="modal-instrucoes" class="modal" aria-labelledby="modal-instrucoes-titulo">
-    <form method="dialog" class="modal-card">
-      <h3 id="modal-instrucoes-titulo" class="modal-title">Como utilizar</h3>
-      <ol class="modal-list">
-        <li>Informe o <strong>Salário Base</strong> mensal.</li>
-        <li>Informe o valor total do <strong>Anuênio</strong> no mês (se houver).</li>
-        <li>Informe as <strong>Horas</strong> e os <strong>Minutos</strong> de hora extra.</li>
-        <li>Clique em <strong>Calcular</strong> para ver o valor aproximado.</li>
-        <li>Use <strong>Limpar</strong> para começar novamente.</li>
-      </ol>
-      <div class="modal-actions">
-        <button class="btn primary">Fechar</button>
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>Desenvolvido por <strong>Dener Batista</strong></p>
       </div>
-    </form>
-  </dialog>
+    </footer>
 
-  <!-- Modal: Termo -->
-  <dialog id="modal-termos" class="modal" aria-labelledby="modal-termos-titulo">
-    <form method="dialog" class="modal-card">
-      <h3 id="modal-termos-titulo" class="modal-title">Termo de Responsabilidade (uso informativo)</h3>
-      <div class="modal-content">
-        <p>
-          Esta calculadora é um <strong>ferramental informativo e não oficial</strong> da Prefeitura Municipal de Aracruz.
-          O resultado apresentado é uma <strong>estimativa</strong> baseada na fórmula indicada na página e pode não refletir
-          integralmente regras específicas, legislações, acordos coletivos, adicionais (como noturno, feriado) ou políticas internas.
-        </p>
-        <p>
-          Ao utilizar esta ferramenta, você concorda que <strong>não há qualquer garantia</strong> sobre exatidão, adequação
-          ou atualização dos cálculos, e que <strong>não caberá cobrança, responsabilização ou indenização</strong> aos autores
-          ou mantenedores deste site por divergências, perdas ou danos de qualquer natureza decorrentes do seu uso.
-        </p>
-        <p>
-          Para informações oficiais, consulte o <a href="https://www.servidor.aracruz.es.gov.br/" target="_blank" rel="noopener noreferrer">Portal do Servidor</a>
-          e/ou os canais formais da Prefeitura.
-        </p>
-      </div>
-      <div class="modal-actions">
-        <button class="btn primary">Li e entendi</button>
-      </div>
-    </form>
-  </dialog>
+    <!-- Modal: Instruções -->
+    <dialog
+      id="modal-instrucoes"
+      class="modal"
+      aria-labelledby="modal-instrucoes-titulo"
+    >
+      <form method="dialog" class="modal-card">
+        <h3 id="modal-instrucoes-titulo" class="modal-title">Como utilizar</h3>
+        <ol class="modal-list">
+          <li>Informe o <strong>Salário Base</strong> mensal.</li>
+          <li>
+            Informe o valor total do <strong>Anuênio</strong> no mês (se
+            houver).
+          </li>
+          <li>
+            Informe as <strong>Horas</strong> e os <strong>Minutos</strong> de
+            hora extra.
+          </li>
+          <li>
+            Clique em <strong>Calcular</strong> para ver o valor aproximado.
+          </li>
+          <li>Use <strong>Limpar</strong> para começar novamente.</li>
+        </ol>
+        <div class="modal-actions">
+          <button class="btn primary">Fechar</button>
+        </div>
+      </form>
+    </dialog>
 
-  <script src="./assets/script.js" type="module"></script>
-</body>
+    <!-- Modal: Termo -->
+    <dialog
+      id="modal-termos"
+      class="modal"
+      aria-labelledby="modal-termos-titulo"
+    >
+      <form method="dialog" class="modal-card">
+        <h3 id="modal-termos-titulo" class="modal-title">
+          Termo de Responsabilidade (uso informativo)
+        </h3>
+        <div class="modal-content">
+          <p>
+            Esta calculadora é um
+            <strong>ferramental informativo e não oficial</strong> da Prefeitura
+            Municipal de Aracruz. O resultado apresentado é uma
+            <strong>estimativa</strong> baseada na fórmula indicada na página e
+            pode não refletir integralmente regras específicas, legislações,
+            acordos coletivos, adicionais (como noturno, feriado) ou políticas
+            internas.
+          </p>
+          <p>
+            Ao utilizar esta ferramenta, você concorda que
+            <strong>não há qualquer garantia</strong> sobre exatidão, adequação
+            ou atualização dos cálculos, e que
+            <strong
+              >não caberá cobrança, responsabilização ou indenização</strong
+            >
+            aos autores ou mantenedores deste site por divergências, perdas ou
+            danos de qualquer natureza decorrentes do seu uso.
+          </p>
+          <p>
+            Para informações oficiais, consulte o
+            <a
+              href="https://www.servidor.aracruz.es.gov.br/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Portal do Servidor</a
+            >
+            e/ou os canais formais da Prefeitura.
+          </p>
+        </div>
+        <div class="modal-actions">
+          <button class="btn primary">Li e entendi</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="./assets/script.js" type="module"></script>
+  </body>
 </html>
