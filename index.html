@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <!-- HEAD otimizado -->
-    <link
-      rel="canonical"
-      href="https://denerbatista.github.io/calculadora-hora-extra/"
-    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Calculadora de Hora Extra — Servidor Municipal de Aracruz</title>
     <meta
       name="description"
       content="Calcule rapidamente o valor estimado da hora extra do servidor municipal de Aracruz. Ferramenta informativa e responsiva."
+    />
+    <meta
+      name="keywords"
+      content="hora extra, servidor municipal, Aracruz, calculadora, anuênio, adicional"
+    />
+    <meta name="author" content="Dener Batista" />
+    <link
+      rel="canonical"
+      href="https://denerbatista.github.io/calculadora-hora-extra/"
     />
     <meta
       name="robots"
@@ -18,7 +27,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./assets/style.css" />
 
-    <!-- Favicon & Apple -->
+    <!-- Ícones (se tiver os gerados) -->
     <link
       rel="icon"
       type="image/png"
@@ -37,14 +46,14 @@
       href="https://denerbatista.github.io/calculadora-hora-extra/assets/logo-180.png"
     />
 
-    <!-- PWA -->
+    <!-- PWA (opcional) -->
     <link
       rel="manifest"
       href="https://denerbatista.github.io/calculadora-hora-extra/assets/site.webmanifest"
     />
     <meta name="theme-color" content="#1d4ed8" />
 
-    <!-- Open Graph / WhatsApp -->
+    <!-- Open Graph (WhatsApp/Facebook/LinkedIn) -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:site_name" content="Calculadora de Hora Extra" />
@@ -85,53 +94,70 @@
   </head>
 
   <body>
-    <header class="site-header">
-      <div class="wrap">
-        <img class="logo" src="assets/logo.png" alt="logo" />
+    <!-- Backdrop do menu -->
+    <div id="backdrop" class="backdrop" hidden></div>
 
-        <!-- Botão hamburguer (aparece só no mobile) -->
-        <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menu">
+    <header class="site-header">
+      <div class="wrap header-row">
+        <img
+          class="logo"
+          src="./assets/logo.png"
+          alt="Logotipo da calculadora"
+        />
+
+        <!-- Botão hambúrguer (sempre visível: mobile e desktop) -->
+        <button
+          id="menu-toggle"
+          class="menu-toggle"
+          aria-label="Abrir menu"
+          aria-controls="drawer"
+          aria-expanded="false"
+        >
           ☰
         </button>
-
-        <!-- Menu lateral -->
-        <nav class="nav" aria-label="Navegação principal">
-          <div class="nav-header">
-            <span class="nav-title">Menu</span>
-            <button id="menu-close" class="menu-close" aria-label="Fechar menu">
-              ✕
-            </button>
-          </div>
-          <ul class="nav-list" id="nav-list">
-            <li>
-              <button
-                class="link nav-option"
-                data-modal-target="#modal-instrucoes"
-              >
-                Instruções
-              </button>
-            </li>
-            <li>
-              <button class="link nav-option" data-modal-target="#modal-termos">
-                <a
-                  class="link nav-option"
-                  href="https://www.servidor.aracruz.es.gov.br/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Portal do Servidor
-                </a>
-              </button>
-            </li>
-            <li>
-              <button class="link nav-option" data-modal-target="#modal-termos">
-                Termo de responsabilidade
-              </button>
-            </li>
-          </ul>
-        </nav>
       </div>
+
+      <!-- Drawer do menu -->
+      <nav
+        id="drawer"
+        class="drawer"
+        aria-label="Menu principal"
+        aria-hidden="true"
+      >
+        <div class="drawer-header">
+          <span class="drawer-title">Menu</span>
+          <button id="menu-close" class="menu-close" aria-label="Fechar menu">
+            ✕
+          </button>
+        </div>
+        <ul class="drawer-list">
+          <li>
+            <button
+              class="link nav-option"
+              data-modal-target="#modal-instrucoes"
+            >
+              Instruções
+            </button>
+          </li>
+          <li>
+            <a
+              class="link nav-option"
+              href="https://www.servidor.aracruz.es.gov.br/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Portal do Servidor
+            </a>
+          </li>
+          <li>
+            <button class="link nav-option" data-modal-target="#modal-termos">
+              Termo de responsabilidade
+            </button>
+          </li>
+        </ul>
+      </nav>
     </header>
+
     <main class="site-main">
       <section class="card" aria-labelledby="sec-calculo-titulo">
         <h2 id="sec-calculo-titulo" class="card-title">
@@ -148,9 +174,9 @@
                 class="input"
                 type="text"
                 inputmode="decimal"
+                pattern="[0-9]*[.,]?[0-9]*"
                 placeholder="Ex.: 3.250,00"
                 autocomplete="off"
-                aria-describedby="help-base"
                 required
               />
               <small id="help-base" class="help"
@@ -166,9 +192,9 @@
                 class="input"
                 type="text"
                 inputmode="decimal"
-                placeholder="Ex.: 162,50"
+                pattern="[0-9]*[.,]?[0-9]*"
+                placeholder="Ex.: 68,70"
                 autocomplete="off"
-                aria-describedby="help-anuenio"
                 required
               />
               <small id="help-anuenio" class="help"
@@ -176,7 +202,6 @@
               >
             </div>
 
-            <!-- NOVO: horas e minutos separados -->
             <div class="field">
               <label class="label" for="horas_extras"
                 >Horas extras (horas)</label
@@ -256,9 +281,8 @@
         <details class="details">
           <summary>Fórmula usada (estimativa)</summary>
           <pre class="code">
-valorHora = ( (salárioBase + anuênio) / 30 / 6 )
-totalExtra = valorHora × 1,5 × ( horas + (minutos/60) )
-        </pre
+valorHora = ((salárioBase + anuênio) / 30 / 6)
+totalExtra = valorHora × 1,5 × (horas + minutos/60)</pre
           >
           <small
             >Obs.: 1,5 representa adicional de 50% (hora extra comum). Ajuste
