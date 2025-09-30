@@ -1,0 +1,21 @@
+{
+  "name": "Calculadora de Hora Extra",
+  "short_name": "Hora Extra",
+  "start_url": "/calculadora-hora-extra/",
+  "scope": "/calculadora-hora-extra/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1d4ed8",
+  "icons": [
+    {
+      "src": "/calculadora-hora-extra/assets/logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/calculadora-hora-extra/assets/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
