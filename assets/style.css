@@ -192,7 +192,7 @@ body.menu-open {
 }
 .grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: clamp(12px, 2vw, 18px);
 }
 .field {
