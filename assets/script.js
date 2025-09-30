@@ -1,5 +1,8 @@
 // ===== Utilidades de número ↔ texto pt-BR =====
-const brCurrency = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+const brCurrency = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+});
 
 /** Converte string "3.250,50" ou "3250.50" → Number(3250.50) */
 function parseDecimalBR(value) {
@@ -18,9 +21,9 @@ function toBRL(n) {
 // ===== DOM =====
 const form = document.getElementById("form-calculadora");
 const baseInput = document.getElementById("salario_base");
-const anuInput  = document.getElementById("anuenio");
-const horasInput= document.getElementById("horas_extras");
-const minInput  = document.getElementById("minutos_extras");
+const anuInput = document.getElementById("anuenio");
+const horasInput = document.getElementById("horas_extras");
+const minInput = document.getElementById("minutos_extras");
 
 const saida = document.getElementById("saida");
 const explicacao = document.getElementById("explicacao");
@@ -30,16 +33,17 @@ const modalTermos = document.getElementById("modal-termos");
 
 // ===== Validação =====
 function validarCampos() {
-  const base  = parseDecimalBR(baseInput.value);
-  const anu   = parseDecimalBR(anuInput.value);
+  const base = parseDecimalBR(baseInput.value);
+  const anu = parseDecimalBR(anuInput.value);
   const horas = Number(horasInput.value);
-  const mins  = Number(minInput.value);
+  const mins = Number(minInput.value);
 
   const erros = [];
-  if (!Number.isFinite(base)  || base  < 0) erros.push("Salário base inválido.");
-  if (!Number.isFinite(anu)   || anu   < 0) erros.push("Anuênio inválido.");
+  if (!Number.isFinite(base) || base < 0) erros.push("Salário base inválido.");
+  if (!Number.isFinite(anu) || anu < 0) erros.push("Anuênio inválido.");
   if (!Number.isFinite(horas) || horas < 0) erros.push("Horas inválidas.");
-  if (!Number.isFinite(mins)  || mins  < 0 || mins > 59) erros.push("Minutos inválidos (0–59).");
+  if (!Number.isFinite(mins) || mins < 0 || mins > 59)
+    erros.push("Minutos inválidos (0–59).");
 
   return { base, anu, horas, mins, erros };
 }
@@ -55,12 +59,12 @@ function calcular() {
   }
 
   // Soma horas e minutos
-  const horasTotais = horas + (mins / 60);
+  const horasTotais = horas + mins / 60;
 
   // Fórmula estimativa:
   // valorHora = ((base + anuênio) / 30 / 6)
   // totalExtra = valorHora * 1.5 * horasTotais
-  const valorHora = ((base + anu) / 30 / 6);
+  const valorHora = (base + anu) / 30 / 6;
   const total = valorHora * 1.5 * horasTotais;
 
   saida.textContent = toBRL(total);
@@ -100,4 +104,29 @@ window.addEventListener("DOMContentLoaded", () => {
   if (modalTermos?.showModal) {
     modalTermos.showModal();
   }
+});
+
+// ===== Menu hambúrguer mobile =====
+const menuToggle = document.getElementById("menu-toggle");
+const menuClose = document.getElementById("menu-close");
+const nav = document.querySelector(".nav");
+const navOptions = document.querySelectorAll(".nav-option");
+
+function openMenu() {
+  nav.classList.add("open");
+  document.body.classList.add("menu-open");
+}
+function closeMenu() {
+  nav.classList.remove("open");
+  document.body.classList.remove("menu-open");
+}
+
+if (menuToggle && nav) {
+  menuToggle.addEventListener("click", openMenu);
+}
+if (menuClose) {
+  menuClose.addEventListener("click", closeMenu);
+}
+navOptions.forEach((option) => {
+  option.addEventListener("click", closeMenu);
 });

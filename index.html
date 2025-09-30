@@ -15,36 +15,44 @@
   <body>
     <header class="site-header">
       <div class="wrap">
-        <img class="logo" src="assets\logo.png" alt="logo" />
+        <img class="logo" src="assets/logo.png" alt="logo" />
+
+        <!-- Botão hamburguer (aparece só no mobile) -->
+        <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menu">
+          ☰
+        </button>
+
+        <!-- Menu lateral -->
         <nav class="nav" aria-label="Navegação principal">
-          <ul class="nav-list">
+          <div class="nav-header">
+            <span class="nav-title">Menu</span>
+            <button id="menu-close" class="menu-close" aria-label="Fechar menu">
+              ✕
+            </button>
+          </div>
+          <ul class="nav-list" id="nav-list">
             <li>
               <button
-                class="link"
+                class="link nav-option"
                 data-modal-target="#modal-instrucoes"
-                aria-haspopup="dialog"
-                aria-controls="modal-instrucoes"
               >
                 Instruções
               </button>
             </li>
             <li>
-              <a
-                class="link"
-                href="https://www.servidor.aracruz.es.gov.br/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Portal do Servidor
-              </a>
+              <button class="link nav-option" data-modal-target="#modal-termos">
+                <a
+                  class="link nav-option"
+                  href="https://www.servidor.aracruz.es.gov.br/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Portal do Servidor
+                </a>
+              </button>
             </li>
             <li>
-              <button
-                class="link"
-                data-modal-target="#modal-termos"
-                aria-haspopup="dialog"
-                aria-controls="modal-termos"
-              >
+              <button class="link nav-option" data-modal-target="#modal-termos">
                 Termo de responsabilidade
               </button>
             </li>
@@ -52,7 +60,6 @@
         </nav>
       </div>
     </header>
-
     <main class="site-main">
       <section class="card" aria-labelledby="sec-calculo-titulo">
         <h2 id="sec-calculo-titulo" class="card-title">

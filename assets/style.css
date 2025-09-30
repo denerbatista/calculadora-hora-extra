@@ -69,14 +69,89 @@ body {
 .logo {
   width: 10rem;
 }
-.nav-list {
+
+/* Botão hamburguer */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--ink);
+}
+
+.menu-close {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--ink);
+}
+
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-title {
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--ink-soft);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    height: 100%;
+    background: #eaf0ff;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+  }
+
+  .nav.open {
+    right: 0;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    margin: 0;
+  }
+
+  .nav-list li {
+    text-align: left;
+  }
+
+  /* Bloqueia rolagem quando menu está aberto */
+  body.menu-open {
+    overflow: hidden;
+  }
+}
+
+
+/* .nav-list {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   gap: clamp(10px, 2vw, 22px);
   padding: 0;
   margin: 0;
-}
+} */
 .nav-list .link,
 .nav-list a {
   text-decoration: none;
