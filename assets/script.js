@@ -1,5 +1,8 @@
 // =================== Utilidades numéricas pt-BR ===================
-const brCurrency = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+const brCurrency = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+});
 
 /** "3.250,50" | "3250,50" | "3250.50" -> Number */
 function parseDecimalBR(value) {
@@ -16,9 +19,9 @@ function toBRL(n) {
 // =================== DOM refs ===================
 const form = document.getElementById("form-calculadora");
 const baseInput = document.getElementById("salario_base");
-const anuInput  = document.getElementById("anuenio");
-const horasInput= document.getElementById("horas_extras");
-const minInput  = document.getElementById("minutos_extras");
+const anuInput = document.getElementById("anuenio");
+const horasInput = document.getElementById("horas_extras");
+const minInput = document.getElementById("minutos_extras");
 
 const saida = document.getElementById("saida");
 const explicacao = document.getElementById("explicacao");
@@ -36,16 +39,17 @@ const navOptions = document.querySelectorAll(".nav-option");
 
 // =================== Validação ===================
 function validarCampos() {
-  const base  = parseDecimalBR(baseInput.value);
-  const anu   = parseDecimalBR(anuInput.value);
+  const base = parseDecimalBR(baseInput.value);
+  const anu = parseDecimalBR(anuInput.value);
   const horas = Number(horasInput.value);
-  const mins  = Number(minInput.value);
+  const mins = Number(minInput.value);
 
   const erros = [];
-  if (!Number.isFinite(base)  || base  < 0) erros.push("Salário base inválido.");
-  if (!Number.isFinite(anu)   || anu   < 0) erros.push("Anuênio inválido.");
+  if (!Number.isFinite(base) || base < 0) erros.push("Salário base inválido.");
+  if (!Number.isFinite(anu) || anu < 0) erros.push("Anuênio inválido.");
   if (!Number.isFinite(horas) || horas < 0) erros.push("Horas inválidas.");
-  if (!Number.isFinite(mins)  || mins  < 0 || mins > 59) erros.push("Minutos inválidos (0–59).");
+  if (!Number.isFinite(mins) || mins < 0 || mins > 59)
+    erros.push("Minutos inválidos (0–59).");
 
   return { base, anu, horas, mins, erros };
 }
@@ -60,12 +64,12 @@ function calcular() {
     return;
   }
 
-  const horasTotais = horas + (mins / 60);
+  const horasTotais = horas + mins / 60;
 
   // Fórmula estimativa:
   // valorHora = ((base + anuênio) / 30 / 6)
   // totalExtra = valorHora * 1.5 * horasTotais
-  const valorHora = ((base + anu) / 30 / 6);
+  const valorHora = (base + anu) / 30 / 6;
   const total = valorHora * 1.5 * horasTotais;
 
   saida.textContent = toBRL(total);
@@ -139,3 +143,12 @@ document.addEventListener("keydown", (e) => {
     closeDrawer();
   }
 });
+
+function formatBRLInput(el) {
+  el.addEventListener("input", () => {
+    el.value = el.value.replace(/\./g, ",").replace(/[^0-9,]/g, "");
+  });
+}
+
+formatBRLInput(document.getElementById("salario_base"));
+formatBRLInput(document.getElementById("anuenio"));
